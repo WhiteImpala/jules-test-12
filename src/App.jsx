@@ -3,6 +3,7 @@ import { Render } from '@puckeditor/core';
 import PuckEditor from './components/PuckEditor';
 import { config } from './components/puckConfig';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { templates, colorPresets } from './templates';
 
 const defaultData = {
   content: [],
@@ -40,6 +41,62 @@ function App() {
     localStorage.setItem('puck-pages', JSON.stringify(updatedPages));
     // For backwards compatibility with single page setups
     localStorage.setItem('puck-data', JSON.stringify(newData));
+  };
+
+  const handleApplyTemplate = (e) => {
+    const templateIndex = e.target.value;
+    if (templateIndex === "") return;
+
+    if (confirm("Applying a template will overwrite the current page's content. Continue?")) {
+      const templateData = JSON.parse(JSON.stringify(templates[templateIndex].data));
+      updatePageData(templateData);
+    }
+    e.target.value = "";
+  };
+
+  const handleApplyColorPreset = (e) => {
+    const presetIndex = e.target.value;
+    if (presetIndex === "") return;
+
+    const preset = colorPresets[presetIndex];
+
+    // Create a deep copy of the current data
+    const newData = JSON.parse(JSON.stringify(data));
+
+    // Update colors for all components
+    if (newData.content) {
+      newData.content = newData.content.map(component => {
+        const newProps = { ...component.props };
+
+        // Define how different components use the palette
+        if (component.type === 'Hero') {
+          newProps.backgroundColor = preset.primary;
+          newProps.textColor = preset.bg;
+        } else if (component.type === 'Navbar') {
+          newProps.backgroundColor = preset.text;
+          newProps.textColor = preset.bg;
+        } else if (component.type === 'Footer') {
+          newProps.backgroundColor = preset.text;
+          newProps.textColor = preset.bg;
+        } else if (component.type === 'Button') {
+          newProps.buttonColor = preset.primary;
+          newProps.buttonTextColor = preset.bg;
+        } else {
+          // General background components
+          if (newProps.backgroundColor && newProps.backgroundColor !== 'transparent') {
+            newProps.backgroundColor = preset.bg;
+          }
+          if (newProps.textColor) {
+            newProps.textColor = preset.text;
+          }
+        }
+
+        return { ...component, props: newProps };
+      });
+    }
+
+    updatePageData(newData);
+    e.target.value = "";
   };
 
   const handleAddPage = () => {
@@ -148,6 +205,28 @@ function App() {
             >
               +
             </button>
+
+          <select
+            onChange={handleApplyTemplate}
+            defaultValue=""
+            className="bg-gray-700 text-white rounded px-2 py-1 text-sm border border-gray-600 ml-4"
+          >
+            <option value="" disabled>Apply Template...</option>
+            {templates.map((t, idx) => (
+              <option key={idx} value={idx}>{t.name}</option>
+            ))}
+          </select>
+
+          <select
+            onChange={handleApplyColorPreset}
+            defaultValue=""
+            className="bg-gray-700 text-white rounded px-2 py-1 text-sm border border-gray-600 ml-2"
+          >
+            <option value="" disabled>Apply Color Preset...</option>
+            {colorPresets.map((p, idx) => (
+              <option key={idx} value={idx}>{p.name}</option>
+            ))}
+          </select>
           </div>
         </div>
         <div className="flex items-center space-x-2">
