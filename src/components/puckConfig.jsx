@@ -601,6 +601,239 @@ export const config = {
         </nav>
       )
     },
+
+    PricingTable: {
+      fields: {
+        title: { type: "text" },
+        tier1Name: { type: "text" },
+        tier1Price: { type: "text" },
+        tier1Features: { type: "textarea" },
+        tier2Name: { type: "text" },
+        tier2Price: { type: "text" },
+        tier2Features: { type: "textarea" },
+        tier3Name: { type: "text" },
+        tier3Price: { type: "text" },
+        tier3Features: { type: "textarea" },
+        ...commonFields,
+      },
+      defaultProps: {
+        title: "Simple, Transparent Pricing",
+        tier1Name: "Basic",
+        tier1Price: "$9/mo",
+        tier1Features: "Feature A\nFeature B\nFeature C",
+        tier2Name: "Pro",
+        tier2Price: "$29/mo",
+        tier2Features: "Feature A\nFeature B\nFeature C\nFeature D\nFeature E",
+        tier3Name: "Enterprise",
+        tier3Price: "Contact Us",
+        tier3Features: "All Pro features\n24/7 Support\nCustom SLA",
+        ...defaultCommonProps,
+        paddingTop: "60px",
+        paddingBottom: "60px",
+        backgroundColor: "#f9fafb",
+      },
+      render: (props) => (
+        <section style={{ ...getCommonStyles(props) }}>
+          <h2 style={{ textAlign: "center", marginBottom: "40px", fontSize: "2rem" }}>{props.title}</h2>
+          <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "0 20px" }}>
+            {[
+              { name: props.tier1Name, price: props.tier1Price, features: props.tier1Features, highlight: false },
+              { name: props.tier2Name, price: props.tier2Price, features: props.tier2Features, highlight: true },
+              { name: props.tier3Name, price: props.tier3Price, features: props.tier3Features, highlight: false },
+            ].map((tier, i) => (
+              <div key={i} style={{
+                flex: "1 1 250px", maxWidth: "300px", padding: "30px",
+                backgroundColor: tier.highlight ? "#007bff" : "#ffffff",
+                color: tier.highlight ? "#ffffff" : props.textColor,
+                borderRadius: "8px",
+                boxShadow: tier.highlight ? "0 10px 15px rgba(0,0,0,0.1)" : "0 4px 6px rgba(0,0,0,0.05)",
+                border: tier.highlight ? "none" : "1px solid #e5e7eb",
+                textAlign: "center",
+                transform: tier.highlight ? "scale(1.05)" : "none",
+              }}>
+                <h3 style={{ fontSize: "1.5rem", marginBottom: "15px", color: tier.highlight ? "#ffffff" : props.textColor }}>{tier.name}</h3>
+                <div style={{ fontSize: "2.5rem", fontWeight: "bold", marginBottom: "20px" }}>{tier.price}</div>
+                <ul style={{ listStyle: "none", padding: 0, marginBottom: "30px", textAlign: "left" }}>
+                  {tier.features.split('\n').map((feat, j) => (
+                    <li key={j} style={{ marginBottom: "10px", paddingBottom: "10px", borderBottom: tier.highlight ? "1px solid rgba(255,255,255,0.2)" : "1px solid #f3f4f6" }}>
+                      ✓ {feat}
+                    </li>
+                  ))}
+                </ul>
+                <button style={{
+                  padding: "10px 20px", width: "100%", borderRadius: "5px", border: "none", cursor: "pointer", fontWeight: "bold",
+                  backgroundColor: tier.highlight ? "#ffffff" : "#f3f4f6",
+                  color: tier.highlight ? "#007bff" : "#374151"
+                }}>Choose Plan</button>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    },
+    Testimonials: {
+      fields: {
+        title: { type: "text" },
+        quote1: { type: "textarea" },
+        author1: { type: "text" },
+        quote2: { type: "textarea" },
+        author2: { type: "text" },
+        quote3: { type: "textarea" },
+        author3: { type: "text" },
+        ...commonFields,
+      },
+      defaultProps: {
+        title: "What Our Customers Say",
+        quote1: "This product completely transformed our workflow. Highly recommended!",
+        author1: "Jane Doe, CEO",
+        quote2: "The ease of use and powerful features are unmatched in the industry.",
+        author2: "John Smith, Designer",
+        quote3: "Customer support is incredible. They went above and beyond for us.",
+        author3: "Alice Johnson, Manager",
+        ...defaultCommonProps,
+        paddingTop: "60px",
+        paddingBottom: "60px",
+        backgroundColor: "#ffffff",
+      },
+      render: (props) => (
+        <section style={{ ...getCommonStyles(props) }}>
+          <h2 style={{ textAlign: "center", marginBottom: "40px", fontSize: "2rem" }}>{props.title}</h2>
+          <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "0 20px" }}>
+            {[
+              { quote: props.quote1, author: props.author1 },
+              { quote: props.quote2, author: props.author2 },
+              { quote: props.quote3, author: props.author3 },
+            ].map((t, i) => (
+              <div key={i} style={{ flex: "1 1 250px", maxWidth: "350px", padding: "25px", backgroundColor: "#f9fafb", borderRadius: "8px", border: "1px solid #e5e7eb" }}>
+                <p style={{ fontStyle: "italic", marginBottom: "15px", color: "#4b5563" }}>"{t.quote}"</p>
+                <div style={{ fontWeight: "bold", color: "#111827" }}>- {t.author}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    },
+    FAQ: {
+      fields: {
+        title: { type: "text" },
+        q1: { type: "text" },
+        a1: { type: "textarea" },
+        q2: { type: "text" },
+        a2: { type: "textarea" },
+        q3: { type: "text" },
+        a3: { type: "textarea" },
+        ...commonFields,
+      },
+      defaultProps: {
+        title: "Frequently Asked Questions",
+        q1: "How do I get started?",
+        a1: "Simply sign up for an account and follow our quickstart guide.",
+        q2: "Can I cancel my subscription?",
+        a2: "Yes, you can cancel your subscription at any time from your account settings.",
+        q3: "Do you offer a free trial?",
+        a3: "We offer a 14-day free trial on all our premium plans.",
+        ...defaultCommonProps,
+        paddingTop: "60px",
+        paddingBottom: "60px",
+      },
+      render: (props) => (
+        <section style={{ ...getCommonStyles(props), maxWidth: "800px", margin: "0 auto", padding: "60px 20px" }}>
+          <h2 style={{ textAlign: "center", marginBottom: "40px", fontSize: "2rem" }}>{props.title}</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+            {[
+              { q: props.q1, a: props.a1 },
+              { q: props.q2, a: props.a2 },
+              { q: props.q3, a: props.a3 },
+            ].map((item, i) => (
+              <div key={i} style={{ border: "1px solid #e5e7eb", borderRadius: "8px", padding: "20px", backgroundColor: "#ffffff" }}>
+                <h4 style={{ margin: "0 0 10px 0", fontSize: "1.1rem" }}>{item.q}</h4>
+                <p style={{ margin: 0, color: "#4b5563" }}>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    },
+    ImageGallery: {
+      fields: {
+        img1: { type: "text" },
+        img2: { type: "text" },
+        img3: { type: "text" },
+        img4: { type: "text" },
+        ...commonFields,
+      },
+      defaultProps: {
+        img1: "https://images.unsplash.com/photo-1506744626753-1fa44df14c28?w=400&q=80",
+        img2: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&q=80",
+        img3: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=400&q=80",
+        img4: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=400&q=80",
+        ...defaultCommonProps,
+        paddingTop: "40px",
+        paddingBottom: "40px",
+      },
+      render: (props) => (
+        <section style={{ ...getCommonStyles(props) }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "15px", padding: "0 20px" }}>
+            {[props.img1, props.img2, props.img3, props.img4].map((url, i) => (
+              url ? <img key={i} src={url} alt={`Gallery ${i+1}`} style={{ width: "100%", height: "250px", objectFit: "cover", borderRadius: "8px" }} /> : null
+            ))}
+          </div>
+        </section>
+      )
+    },
+    ContactForm: {
+      fields: {
+        title: { type: "text" },
+        buttonText: { type: "text" },
+        ...commonFields,
+      },
+      defaultProps: {
+        title: "Get in Touch",
+        buttonText: "Send Message",
+        ...defaultCommonProps,
+        paddingTop: "60px",
+        paddingBottom: "60px",
+        backgroundColor: "#f9fafb",
+      },
+      render: (props) => (
+        <section style={{ ...getCommonStyles(props), display: "flex", justifyContent: "center" }}>
+          <div style={{ width: "100%", maxWidth: "500px", padding: "30px", backgroundColor: "#ffffff", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0,0,0,0.05)", border: "1px solid #e5e7eb" }}>
+            <h2 style={{ textAlign: "center", marginBottom: "30px", fontSize: "1.75rem" }}>{props.title}</h2>
+            <form onSubmit={(e) => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+              <input type="text" placeholder="Name" style={{ padding: "12px", border: "1px solid #d1d5db", borderRadius: "5px", width: "100%", boxSizing: "border-box" }} />
+              <input type="email" placeholder="Email" style={{ padding: "12px", border: "1px solid #d1d5db", borderRadius: "5px", width: "100%", boxSizing: "border-box" }} />
+              <textarea placeholder="Message" rows="4" style={{ padding: "12px", border: "1px solid #d1d5db", borderRadius: "5px", width: "100%", boxSizing: "border-box" }}></textarea>
+              <button style={{ padding: "12px", backgroundColor: "#007bff", color: "#ffffff", border: "none", borderRadius: "5px", cursor: "pointer", fontWeight: "bold", fontSize: "1rem" }}>{props.buttonText}</button>
+            </form>
+          </div>
+        </section>
+      )
+    },
+    VideoPlayer: {
+      fields: {
+        videoUrl: { type: "text" },
+        ...commonFields,
+      },
+      defaultProps: {
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        ...defaultCommonProps,
+        paddingTop: "40px",
+        paddingBottom: "40px",
+      },
+      render: (props) => (
+        <section style={{ ...getCommonStyles(props), display: "flex", justifyContent: "center", padding: "20px" }}>
+          <div style={{ position: "relative", width: "100%", maxWidth: "800px", paddingBottom: "56.25%", height: 0, overflow: "hidden", borderRadius: "8px", boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)" }}>
+            <iframe
+              src={props.videoUrl}
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </section>
+      )
+    },
+
     Footer: {
       fields: {
         copyrightText: { type: "text" },
