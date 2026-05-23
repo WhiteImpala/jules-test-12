@@ -1,10 +1,10 @@
 import React from 'react';
-import Builder from './components/Builder';
+import PuckEditor from './components/PuckEditor';
 
 function App() {
   return (
     <div className="w-full h-full min-h-screen">
-      <Builder />
+      <PuckEditor />
     </div>
   );
 }
