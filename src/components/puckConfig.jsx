@@ -344,31 +344,55 @@ export const config = {
         ...flexFields,
       },
       defaultProps: {
-        feature1: "Premium Feature 1",
-        feature1Desc: "Details about premium feature 1.",
-        feature2: "Premium Feature 2",
-        feature2Desc: "Details about premium feature 2.",
-        feature3: "Premium Feature 3",
-        feature3Desc: "Details about premium feature 3.",
+        feature1: "Innovative Design",
+        feature1Desc: "Crafted with modern aesthetics and user-centric principles to deliver an exceptional experience.",
+        feature2: "Robust Performance",
+        feature2Desc: "Engineered for speed and reliability, ensuring seamless operation under demanding conditions.",
+        feature3: "Seamless Integration",
+        feature3Desc: "Effortlessly connects with your existing tools and workflows for unparalleled efficiency.",
         ...defaultCommonProps,
-        paddingTop: "60px",
-        paddingBottom: "60px",
+        paddingTop: "80px",
+        paddingBottom: "80px",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        backgroundColor: "#f9fafb",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "center",
         flexWrap: "wrap",
-        gap: "20px"
+        gap: "40px"
       },
       render: (props) => (
-        <section style={{ ...getCommonStyles(props), ...getFlexStyles(props) }}>
+        <section style={{ ...getCommonStyles(props), ...getFlexStyles(props), boxSizing: 'border-box' }}>
           {[
-            { title: props.feature1, desc: props.feature1Desc },
-            { title: props.feature2, desc: props.feature2Desc },
-            { title: props.feature3, desc: props.feature3Desc }
+            { title: props.feature1, desc: props.feature1Desc, icon: "✨" },
+            { title: props.feature2, desc: props.feature2Desc, icon: "🚀" },
+            { title: props.feature3, desc: props.feature3Desc, icon: "🔗" }
           ].map((f, i) => (
-            <div key={i} style={{ flex: 1, minWidth: '250px', padding: '20px', textAlign: 'center', border: `1px solid ${props.textColor}40`, borderRadius: '8px' }}>
-              <h3 style={{color: props.textColor}}>{f.title}</h3>
-              <p style={{color: props.textColor}}>{f.desc}</p>
+            <div key={i} style={{
+              flex: '1 1 300px',
+              maxWidth: '400px',
+              padding: '40px 30px',
+              textAlign: 'center',
+              backgroundColor: '#ffffff',
+              border: '1px solid #e5e7eb',
+              borderRadius: '12px',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              cursor: 'default'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';
+            }}
+            >
+              <div style={{ fontSize: '3rem', marginBottom: '20px' }}>{f.icon}</div>
+              <h3 style={{color: props.textColor, fontSize: '1.5rem', fontWeight: '600', marginBottom: '15px', marginTop: 0}}>{f.title}</h3>
+              <p style={{color: '#4b5563', lineHeight: '1.6', margin: 0}}>{f.desc}</p>
             </div>
           ))}
         </section>
@@ -421,23 +445,51 @@ export const config = {
       fields: {
         title: { type: "text" },
         description: { type: "textarea" },
+        imageUrl: { type: "text" },
         ...commonFields,
         ...flexFields,
       },
       defaultProps: {
-        title: "Premium Card Title",
-        description: "This is a highly customizable card component.",
+        title: "Professional Card Component",
+        description: "A versatile card component designed for elegantly showcasing content, profiles, or products.",
+        imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80",
         ...defaultCommonProps,
         backgroundColor: "#ffffff",
-        paddingTop: "20px", paddingRight: "20px", paddingBottom: "20px", paddingLeft: "20px",
-        borderRadius: "8px",
-        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+        paddingTop: "0px", paddingRight: "0px", paddingBottom: "0px", paddingLeft: "0px",
+        borderRadius: "16px",
+        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
         display: "flex", flexDirection: "column",
+        maxWidth: "400px",
+        borderWidth: "1px",
+        borderStyle: "solid",
+        borderColor: "#e5e7eb",
+        overflow: "hidden"
       },
       render: (props) => (
-        <div style={{ ...getCommonStyles(props), ...getFlexStyles(props) }}>
-          <h3 style={{ marginTop: 0, color: props.textColor }}>{props.title}</h3>
-          <p style={{ marginBottom: 0, color: props.textColor }}>{props.description}</p>
+        <div style={{
+          ...getCommonStyles(props),
+          ...getFlexStyles(props),
+          overflow: 'hidden',
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateY(-4px)';
+          e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = props.boxShadow || '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+        }}
+        >
+          {props.imageUrl && (
+            <div style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
+              <img src={props.imageUrl} alt={props.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          )}
+          <div style={{ padding: '24px' }}>
+            <h3 style={{ marginTop: 0, marginBottom: '12px', color: props.textColor, fontSize: '1.25rem', fontWeight: '600', lineHeight: '1.4' }}>{props.title}</h3>
+            <p style={{ marginBottom: 0, color: '#4b5563', lineHeight: '1.6' }}>{props.description}</p>
+          </div>
         </div>
       )
     },
