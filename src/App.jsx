@@ -27,6 +27,7 @@ const getInitialPages = () => {
 function App() {
   const [pages, setPages] = useState(getInitialPages());
   const [currentPage, setCurrentPage] = useState('/');
+  const [editorKey, setEditorKey] = useState(0);
   const [mode, setMode] = useState('edit'); // 'edit' or 'preview'
   const fileInputRef = useRef(null);
 
@@ -50,6 +51,7 @@ function App() {
     if (confirm("Applying a template will overwrite the current page's content. Continue?")) {
       const templateData = JSON.parse(JSON.stringify(templates[templateIndex].data));
       updatePageData(templateData);
+      setEditorKey(prev => prev + 1);
     }
     e.target.value = "";
   };
@@ -96,6 +98,7 @@ function App() {
     }
 
     updatePageData(newData);
+    setEditorKey(prev => prev + 1);
     e.target.value = "";
   };
 
@@ -273,7 +276,7 @@ function App() {
       <div className="flex-1 overflow-hidden">
         {mode === 'edit' ? (
           <PuckEditor
-            key={currentPage}
+            key={`${currentPage}-${editorKey}`}
             data={data}
             onChange={updatePageData}
           />
