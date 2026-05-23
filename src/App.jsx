@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Render } from '@puckeditor/core';
-import PuckEditor, { config } from './components/PuckEditor';
+import PuckEditor from './components/PuckEditor';
+import { config } from './components/puckConfig';
 
 const defaultData = {
   content: [],
