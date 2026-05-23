@@ -14,7 +14,231 @@ const colorField = {
   ),
 };
 
-// Configure the blocks for Puck
+const spacingFields = {
+  paddingTop: { type: "text" },
+  paddingRight: { type: "text" },
+  paddingBottom: { type: "text" },
+  paddingLeft: { type: "text" },
+  marginTop: { type: "text" },
+  marginBottom: { type: "text" },
+  marginLeft: { type: "text" },
+  marginRight: { type: "text" },
+};
+
+const defaultSpacing = {
+  paddingTop: "20px",
+  paddingRight: "20px",
+  paddingBottom: "20px",
+  paddingLeft: "20px",
+  marginTop: "0px",
+  marginBottom: "0px",
+  marginLeft: "0px",
+  marginRight: "0px",
+};
+
+const getSpacingStyles = (props) => ({
+  paddingTop: props.paddingTop,
+  paddingRight: props.paddingRight,
+  paddingBottom: props.paddingBottom,
+  paddingLeft: props.paddingLeft,
+  marginTop: props.marginTop,
+  marginBottom: props.marginBottom,
+  marginLeft: props.marginLeft,
+  marginRight: props.marginRight,
+});
+
+const typographyFields = {
+  fontSize: { type: "text" },
+  fontWeight: {
+    type: "select",
+    options: [
+      { label: "Normal", value: "normal" },
+      { label: "Bold", value: "bold" },
+      { label: "100", value: "100" },
+      { label: "300", value: "300" },
+      { label: "400", value: "400" },
+      { label: "500", value: "500" },
+      { label: "600", value: "600" },
+      { label: "700", value: "700" },
+      { label: "900", value: "900" }
+    ]
+  },
+  textAlign: {
+    type: "radio",
+    options: [
+      { label: "Left", value: "left" },
+      { label: "Center", value: "center" },
+      { label: "Right", value: "right" },
+      { label: "Justify", value: "justify" }
+    ]
+  },
+  lineHeight: { type: "text" },
+  letterSpacing: { type: "text" },
+};
+
+const defaultTypography = {
+  fontSize: "1rem",
+  fontWeight: "normal",
+  textAlign: "left",
+  lineHeight: "1.5",
+  letterSpacing: "normal",
+};
+
+const getTypographyStyles = (props) => ({
+  fontSize: props.fontSize,
+  fontWeight: props.fontWeight,
+  textAlign: props.textAlign,
+  lineHeight: props.lineHeight,
+  letterSpacing: props.letterSpacing,
+});
+
+const borderFields = {
+  borderWidth: { type: "text" },
+  borderStyle: {
+    type: "select",
+    options: [
+      { label: "None", value: "none" },
+      { label: "Solid", value: "solid" },
+      { label: "Dashed", value: "dashed" },
+      { label: "Dotted", value: "dotted" }
+    ]
+  },
+  borderColor: colorField,
+  borderRadius: { type: "text" },
+  boxShadow: { type: "text" },
+};
+
+const defaultBorder = {
+  borderWidth: "0px",
+  borderStyle: "none",
+  borderColor: "#000000",
+  borderRadius: "0px",
+  boxShadow: "none",
+};
+
+const getBorderStyles = (props) => ({
+  borderWidth: props.borderWidth,
+  borderStyle: props.borderStyle,
+  borderColor: props.borderColor,
+  borderRadius: props.borderRadius,
+  boxShadow: props.boxShadow,
+});
+
+const flexFields = {
+  display: {
+    type: "select",
+    options: [
+      { label: "Block", value: "block" },
+      { label: "Flex", value: "flex" },
+      { label: "Grid", value: "grid" }
+    ]
+  },
+  flexDirection: {
+    type: "radio",
+    options: [
+      { label: "Row", value: "row" },
+      { label: "Column", value: "column" }
+    ]
+  },
+  justifyContent: {
+    type: "select",
+    options: [
+      { label: "Flex Start", value: "flex-start" },
+      { label: "Center", value: "center" },
+      { label: "Flex End", value: "flex-end" },
+      { label: "Space Between", value: "space-between" },
+      { label: "Space Around", value: "space-around" }
+    ]
+  },
+  alignItems: {
+    type: "select",
+    options: [
+      { label: "Flex Start", value: "flex-start" },
+      { label: "Center", value: "center" },
+      { label: "Flex End", value: "flex-end" },
+      { label: "Stretch", value: "stretch" }
+    ]
+  },
+  flexWrap: {
+    type: "radio",
+    options: [
+      { label: "No Wrap", value: "nowrap" },
+      { label: "Wrap", value: "wrap" }
+    ]
+  },
+  gap: { type: "text" },
+};
+
+const defaultFlex = {
+  display: "block",
+  flexDirection: "row",
+  justifyContent: "flex-start",
+  alignItems: "stretch",
+  flexWrap: "nowrap",
+  gap: "0px",
+};
+
+const getFlexStyles = (props) => ({
+  display: props.display,
+  flexDirection: props.flexDirection,
+  justifyContent: props.justifyContent,
+  alignItems: props.alignItems,
+  flexWrap: props.flexWrap,
+  gap: props.gap,
+});
+
+const sizingFields = {
+  width: { type: "text" },
+  maxWidth: { type: "text" },
+  minWidth: { type: "text" },
+  height: { type: "text" },
+  maxHeight: { type: "text" },
+  minHeight: { type: "text" },
+};
+
+const defaultSizing = {
+  width: "auto",
+  maxWidth: "none",
+  minWidth: "auto",
+  height: "auto",
+  maxHeight: "none",
+  minHeight: "auto",
+};
+
+const getSizingStyles = (props) => ({
+  width: props.width,
+  maxWidth: props.maxWidth,
+  minWidth: props.minWidth,
+  height: props.height,
+  maxHeight: props.maxHeight,
+  minHeight: props.minHeight,
+});
+
+const commonFields = {
+  backgroundColor: colorField,
+  textColor: colorField,
+  ...spacingFields,
+  ...borderFields,
+  ...sizingFields,
+};
+
+const defaultCommonProps = {
+  backgroundColor: "transparent",
+  textColor: "#000000",
+  ...defaultSpacing,
+  ...defaultBorder,
+  ...defaultSizing,
+};
+
+const getCommonStyles = (props) => ({
+  backgroundColor: props.backgroundColor,
+  color: props.textColor,
+  ...getSpacingStyles(props),
+  ...getBorderStyles(props),
+  ...getSizingStyles(props),
+});
+
+
 export const config = {
   components: {
     Hero: {
@@ -22,76 +246,101 @@ export const config = {
         title: { type: "text" },
         description: { type: "textarea" },
         buttonText: { type: "text" },
-        backgroundColor: colorField,
-        textColor: colorField,
-        padding: { type: "text" }
+        ...commonFields,
+        ...flexFields,
       },
       defaultProps: {
-        title: "Welcome to Your Site",
-        description: "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.",
-        buttonText: "Learn More",
+        title: "Welcome to Your Premium Site",
+        description: "This is a premium hero unit, highly customizable for any layout.",
+        buttonText: "Discover More",
+        ...defaultCommonProps,
         backgroundColor: "#f8f9fa",
-        textColor: "#333333",
-        padding: "100px 20px"
+        paddingTop: "100px",
+        paddingBottom: "100px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
       },
-      render: ({ title, description, buttonText, backgroundColor, textColor, padding }) => (
-        <header className="hero-section" style={{ padding, textAlign: 'center', backgroundColor, color: textColor }}>
-          <h1 style={{ fontSize: '3rem', marginBottom: '20px' }}>{title}</h1>
-          <p style={{ fontSize: '1.5rem', marginBottom: '30px' }}>{description}</p>
-          <a href="#" style={{ padding: '10px 20px', fontSize: '1.2rem', backgroundColor: '#007bff', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>{buttonText}</a>
+      render: (props) => (
+        <header style={{ ...getCommonStyles(props), ...getFlexStyles(props) }}>
+          <h1 style={{ fontSize: "3rem", marginBottom: "20px", color: props.textColor }}>{props.title}</h1>
+          <p style={{ fontSize: "1.5rem", marginBottom: "30px", color: props.textColor }}>{props.description}</p>
+          <a href="#" style={{ padding: "12px 24px", fontSize: "1.2rem", backgroundColor: "#007bff", color: "white", textDecoration: "none", borderRadius: "5px" }}>{props.buttonText}</a>
         </header>
       )
     },
     Heading: {
       fields: {
         title: { type: "text" },
-        backgroundColor: colorField,
-        textColor: colorField,
-        padding: { type: "text" }
+        tag: {
+          type: "select",
+          options: [
+            { label: "H1", value: "h1" },
+            { label: "H2", value: "h2" },
+            { label: "H3", value: "h3" },
+            { label: "H4", value: "h4" },
+            { label: "H5", value: "h5" },
+            { label: "H6", value: "h6" }
+          ]
+        },
+        ...commonFields,
+        ...typographyFields,
       },
       defaultProps: {
-        title: "Heading",
-        backgroundColor: "transparent",
-        textColor: "#000000",
-        padding: "20px"
+        title: "Premium Heading",
+        tag: "h2",
+        ...defaultCommonProps,
+        ...defaultTypography,
+        fontSize: "2.5rem",
+        fontWeight: "bold",
       },
-      render: ({ title, backgroundColor, textColor, padding }) => (
-        <h2 style={{ fontSize: '2rem', margin: 0, padding, backgroundColor, color: textColor }}>{title}</h2>
-      )
+      render: (props) => {
+        const Tag = props.tag;
+        return <Tag style={{ ...getCommonStyles(props), ...getTypographyStyles(props), margin: 0 }}>{props.title}</Tag>;
+      }
     },
     Text: {
       fields: {
         content: { type: "textarea" },
-        backgroundColor: colorField,
-        textColor: colorField,
-        padding: { type: "text" }
+        ...commonFields,
+        ...typographyFields,
       },
       defaultProps: {
-        content: "Enter your text here.",
-        backgroundColor: "transparent",
-        textColor: "#333333",
-        padding: "20px"
+        content: "Enter your premium text here.",
+        ...defaultCommonProps,
+        ...defaultTypography,
       },
-      render: ({ content, backgroundColor, textColor, padding }) => (
-        <p style={{ margin: 0, padding, fontSize: '1rem', backgroundColor, color: textColor }}>{content}</p>
+      render: (props) => (
+        <div style={{ ...getCommonStyles(props), ...getTypographyStyles(props) }}>{props.content}</div>
       )
     },
     Image: {
       fields: {
         url: { type: "text" },
         alt: { type: "text" },
-        backgroundColor: colorField,
-        padding: { type: "text" }
+        objectFit: {
+          type: "select",
+          options: [
+            { label: "Fill", value: "fill" },
+            { label: "Contain", value: "contain" },
+            { label: "Cover", value: "cover" },
+            { label: "None", value: "none" },
+            { label: "Scale Down", value: "scale-down" }
+          ]
+        },
+        ...commonFields,
       },
       defaultProps: {
         url: "https://via.placeholder.com/800x400",
         alt: "Placeholder",
-        backgroundColor: "transparent",
-        padding: "20px"
+        objectFit: "cover",
+        ...defaultCommonProps,
+        width: "100%",
       },
-      render: ({ url, alt, backgroundColor, padding }) => (
-        <div style={{ padding, textAlign: 'center', backgroundColor }}>
-          <img src={url} alt={alt} style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }} />
+      render: (props) => (
+        <div style={{ ...getCommonStyles(props), overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+          <img src={props.url} alt={props.alt} style={{ width: "100%", height: "100%", objectFit: props.objectFit }} />
         </div>
       )
     },
@@ -103,31 +352,35 @@ export const config = {
         feature2Desc: { type: "textarea" },
         feature3: { type: "text" },
         feature3Desc: { type: "textarea" },
-        backgroundColor: colorField,
-        textColor: colorField,
-        padding: { type: "text" }
+        ...commonFields,
+        ...flexFields,
       },
       defaultProps: {
-        feature1: "Feature 1",
-        feature1Desc: "Details about feature 1.",
-        feature2: "Feature 2",
-        feature2Desc: "Details about feature 2.",
-        feature3: "Feature 3",
-        feature3Desc: "Details about feature 3.",
-        backgroundColor: "transparent",
-        textColor: "#000000",
-        padding: "60px 20px"
+        feature1: "Premium Feature 1",
+        feature1Desc: "Details about premium feature 1.",
+        feature2: "Premium Feature 2",
+        feature2Desc: "Details about premium feature 2.",
+        feature3: "Premium Feature 3",
+        feature3Desc: "Details about premium feature 3.",
+        ...defaultCommonProps,
+        paddingTop: "60px",
+        paddingBottom: "60px",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        flexWrap: "wrap",
+        gap: "20px"
       },
-      render: ({ feature1, feature1Desc, feature2, feature2Desc, feature3, feature3Desc, backgroundColor, textColor, padding }) => (
-        <section className="features-section" style={{ padding, display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', backgroundColor, color: textColor }}>
+      render: (props) => (
+        <section style={{ ...getCommonStyles(props), ...getFlexStyles(props) }}>
           {[
-            { title: feature1, desc: feature1Desc },
-            { title: feature2, desc: feature2Desc },
-            { title: feature3, desc: feature3Desc }
+            { title: props.feature1, desc: props.feature1Desc },
+            { title: props.feature2, desc: props.feature2Desc },
+            { title: props.feature3, desc: props.feature3Desc }
           ].map((f, i) => (
-            <div key={i} style={{ flex: 1, minWidth: '250px', margin: '10px', padding: '20px', textAlign: 'center', border: `1px solid ${textColor}40`, borderRadius: '8px' }}>
-              <h3>{f.title}</h3>
-              <p>{f.desc}</p>
+            <div key={i} style={{ flex: 1, minWidth: '250px', padding: '20px', textAlign: 'center', border: `1px solid ${props.textColor}40`, borderRadius: '8px' }}>
+              <h3 style={{color: props.textColor}}>{f.title}</h3>
+              <p style={{color: props.textColor}}>{f.desc}</p>
             </div>
           ))}
         </section>
@@ -138,41 +391,41 @@ export const config = {
         label: { type: "text" },
         href: { type: "text" },
         buttonColor: colorField,
-        textColor: colorField,
-        align: {
-          type: "radio",
-          options: [
-            { label: "Left", value: "left" },
-            { label: "Center", value: "center" },
-            { label: "Right", value: "right" }
-          ]
-        }
+        buttonTextColor: colorField,
+        ...commonFields,
+        ...typographyFields,
       },
       defaultProps: {
         label: "Click Me",
         href: "#",
         buttonColor: "#007bff",
-        textColor: "#ffffff",
-        align: "center"
+        buttonTextColor: "#ffffff",
+        ...defaultCommonProps,
+        ...defaultTypography,
+        textAlign: "center",
       },
-      render: ({ label, href, buttonColor, textColor, align }) => (
-        <div style={{ textAlign: align, padding: '20px' }}>
-          <a href={href} style={{ padding: '10px 20px', fontSize: '1rem', backgroundColor: buttonColor, color: textColor, textDecoration: 'none', borderRadius: '5px', display: 'inline-block' }}>{label}</a>
+      render: (props) => (
+        <div style={{ ...getCommonStyles(props), textAlign: props.textAlign }}>
+          <a href={props.href} style={{ ...getTypographyStyles(props), padding: '10px 20px', backgroundColor: props.buttonColor, color: props.buttonTextColor, textDecoration: 'none', borderRadius: '5px', display: 'inline-block' }}>{props.label}</a>
         </div>
       )
     },
     Divider: {
       fields: {
         color: colorField,
-        thickness: { type: "text" }
+        thickness: { type: "text" },
+        ...commonFields,
       },
       defaultProps: {
         color: "#dddddd",
-        thickness: "1px"
+        thickness: "1px",
+        ...defaultCommonProps,
+        paddingTop: "20px",
+        paddingBottom: "20px"
       },
-      render: ({ color, thickness }) => (
-        <div style={{ padding: '20px 0' }}>
-          <hr style={{ border: 'none', borderTop: `${thickness} solid ${color}` }} />
+      render: (props) => (
+        <div style={getCommonStyles(props)}>
+          <hr style={{ border: 'none', borderTop: `${props.thickness} solid ${props.color}`, margin: 0 }} />
         </div>
       )
     },
@@ -180,19 +433,23 @@ export const config = {
       fields: {
         title: { type: "text" },
         description: { type: "textarea" },
-        backgroundColor: colorField,
-        textColor: colorField,
+        ...commonFields,
+        ...flexFields,
       },
       defaultProps: {
-        title: "Card Title",
-        description: "This is a simple card component.",
+        title: "Premium Card Title",
+        description: "This is a highly customizable card component.",
+        ...defaultCommonProps,
         backgroundColor: "#ffffff",
-        textColor: "#333333"
+        paddingTop: "20px", paddingRight: "20px", paddingBottom: "20px", paddingLeft: "20px",
+        borderRadius: "8px",
+        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+        display: "flex", flexDirection: "column",
       },
-      render: ({ title, description, backgroundColor, textColor }) => (
-        <div style={{ padding: '20px', margin: '20px', backgroundColor, color: textColor, borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ marginTop: 0 }}>{title}</h3>
-          <p style={{ marginBottom: 0 }}>{description}</p>
+      render: (props) => (
+        <div style={{ ...getCommonStyles(props), ...getFlexStyles(props) }}>
+          <h3 style={{ marginTop: 0, color: props.textColor }}>{props.title}</h3>
+          <p style={{ marginBottom: 0, color: props.textColor }}>{props.description}</p>
         </div>
       )
     },
@@ -200,33 +457,38 @@ export const config = {
       fields: {
         text: { type: "textarea" },
         author: { type: "text" },
-        backgroundColor: colorField,
-        textColor: colorField,
+        ...commonFields,
+        ...typographyFields,
       },
       defaultProps: {
-        text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
-        author: "- Nelson Mandela",
+        text: "Design is not just what it looks like and feels like. Design is how it works.",
+        author: "- Steve Jobs",
+        ...defaultCommonProps,
+        ...defaultTypography,
         backgroundColor: "#f0f8ff",
-        textColor: "#333333"
+        paddingTop: "20px", paddingRight: "30px", paddingBottom: "20px", paddingLeft: "30px",
+        borderLeftWidth: "5px", borderStyle: "solid", borderColor: "#007bff",
+        fontStyle: "italic"
       },
-      render: ({ text, author, backgroundColor, textColor }) => (
-        <blockquote style={{ padding: '20px 30px', margin: '20px', backgroundColor, color: textColor, borderLeft: `5px solid ${textColor}80`, fontStyle: 'italic' }}>
-          <p style={{ fontSize: '1.2rem', marginBottom: '10px' }}>"{text}"</p>
-          <footer style={{ fontWeight: 'bold' }}>{author}</footer>
+      render: (props) => (
+        <blockquote style={{ ...getCommonStyles(props), ...getTypographyStyles(props), margin: 0 }}>
+          <p style={{ fontSize: '1.2rem', marginBottom: '10px' }}>"{props.text}"</p>
+          <footer style={{ fontWeight: 'bold' }}>{props.author}</footer>
         </blockquote>
       )
     },
     Section: {
       fields: {
-        backgroundColor: colorField,
-        padding: { type: "text" },
+        ...commonFields,
+        ...flexFields,
       },
       defaultProps: {
-        backgroundColor: "transparent",
-        padding: "40px 20px"
+        ...defaultCommonProps,
+        paddingTop: "40px", paddingBottom: "40px",
+        display: "block",
       },
-      render: ({ backgroundColor, padding }) => (
-        <section style={{ backgroundColor, padding }}>
+      render: (props) => (
+        <section style={{ ...getCommonStyles(props), ...getFlexStyles(props) }}>
           <DropZone zone="content" />
         </section>
       )
@@ -242,20 +504,20 @@ export const config = {
             { label: "4 Columns", value: "4" }
           ]
         },
-        gap: { type: "text" },
-        backgroundColor: colorField,
-        padding: { type: "text" }
+        ...commonFields,
+        ...flexFields,
       },
       defaultProps: {
         columns: "2",
+        ...defaultCommonProps,
+        display: "flex",
+        flexWrap: "wrap",
         gap: "20px",
-        backgroundColor: "transparent",
-        padding: "20px"
       },
-      render: ({ columns, gap, backgroundColor, padding }) => {
-        const colCount = parseInt(columns, 10) || 2;
+      render: (props) => {
+        const colCount = parseInt(props.columns, 10) || 2;
         return (
-          <div style={{ display: 'flex', gap, backgroundColor, padding, flexWrap: 'wrap' }}>
+          <div style={{ ...getCommonStyles(props), ...getFlexStyles(props) }}>
             {Array.from({ length: colCount }).map((_, i) => (
               <div key={i} style={{ flex: 1, minWidth: '200px' }}>
                 <DropZone zone={`col-${i}`} />
@@ -268,30 +530,33 @@ export const config = {
     Navbar: {
       fields: {
         logoText: { type: "text" },
-        backgroundColor: colorField,
-        textColor: colorField,
         link1: { type: "text" },
         link1Url: { type: "text" },
         link2: { type: "text" },
         link2Url: { type: "text" },
         link3: { type: "text" },
-        link3Url: { type: "text" }
+        link3Url: { type: "text" },
+        ...commonFields,
+        ...flexFields,
       },
       defaultProps: {
-        logoText: "My Brand",
-        backgroundColor: "#2c3e50",
-        textColor: "#ffffff",
+        logoText: "Premium Brand",
         link1: "Home", link1Url: "#",
         link2: "About", link2Url: "#",
-        link3: "Contact", link3Url: "#"
+        link3: "Contact", link3Url: "#",
+        ...defaultCommonProps,
+        backgroundColor: "#2c3e50",
+        textColor: "#ffffff",
+        paddingTop: "15px", paddingRight: "30px", paddingBottom: "15px", paddingLeft: "30px",
+        display: "flex", justifyContent: "space-between", alignItems: "center",
       },
-      render: ({ logoText, backgroundColor, textColor, link1, link1Url, link2, link2Url, link3, link3Url }) => (
-        <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 30px', backgroundColor, color: textColor }}>
-          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{logoText}</div>
+      render: (props) => (
+        <nav style={{ ...getCommonStyles(props), ...getFlexStyles(props) }}>
+          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{props.logoText}</div>
           <div style={{ display: 'flex', gap: '20px' }}>
-            {link1 && <a href={link1Url} style={{ color: textColor, textDecoration: 'none' }}>{link1}</a>}
-            {link2 && <a href={link2Url} style={{ color: textColor, textDecoration: 'none' }}>{link2}</a>}
-            {link3 && <a href={link3Url} style={{ color: textColor, textDecoration: 'none' }}>{link3}</a>}
+            {props.link1 && <a href={props.link1Url} style={{ color: props.textColor, textDecoration: 'none' }}>{props.link1}</a>}
+            {props.link2 && <a href={props.link2Url} style={{ color: props.textColor, textDecoration: 'none' }}>{props.link2}</a>}
+            {props.link3 && <a href={props.link3Url} style={{ color: props.textColor, textDecoration: 'none' }}>{props.link3}</a>}
           </div>
         </nav>
       )
@@ -299,17 +564,21 @@ export const config = {
     Footer: {
       fields: {
         copyrightText: { type: "text" },
-        backgroundColor: colorField,
-        textColor: colorField,
+        ...commonFields,
+        ...typographyFields,
       },
       defaultProps: {
-        copyrightText: "© 2026 My Brand. All rights reserved.",
+        copyrightText: "© 2026 Premium Brand. All rights reserved.",
+        ...defaultCommonProps,
+        ...defaultTypography,
         backgroundColor: "#1a1a1a",
         textColor: "#ffffff",
+        paddingTop: "30px", paddingBottom: "30px",
+        textAlign: "center",
       },
-      render: ({ copyrightText, backgroundColor, textColor }) => (
-        <footer style={{ padding: '30px', textAlign: 'center', backgroundColor, color: textColor }}>
-          <p style={{ margin: 0 }}>{copyrightText}</p>
+      render: (props) => (
+        <footer style={{ ...getCommonStyles(props), ...getTypographyStyles(props) }}>
+          <p style={{ margin: 0 }}>{props.copyrightText}</p>
         </footer>
       )
     }
