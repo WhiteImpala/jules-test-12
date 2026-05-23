@@ -1,7 +1,6 @@
 import React from 'react';
-import { Puck } from '@puckeditor/core';
+import { Puck, DropZone } from '@puckeditor/core';
 import '@puckeditor/core/dist/index.css';
-import { Type, Image as ImageIcon, Layout, Columns } from 'lucide-react';
 
 const colorField = {
   type: "custom",
@@ -25,16 +24,18 @@ export const config = {
         buttonText: { type: "text" },
         backgroundColor: colorField,
         textColor: colorField,
+        padding: { type: "text" }
       },
       defaultProps: {
         title: "Welcome to Your Site",
         description: "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.",
         buttonText: "Learn More",
         backgroundColor: "#f8f9fa",
-        textColor: "#333333"
+        textColor: "#333333",
+        padding: "100px 20px"
       },
-      render: ({ title, description, buttonText, backgroundColor, textColor }) => (
-        <header className="hero-section" style={{ padding: '100px 20px', textAlign: 'center', backgroundColor, color: textColor }}>
+      render: ({ title, description, buttonText, backgroundColor, textColor, padding }) => (
+        <header className="hero-section" style={{ padding, textAlign: 'center', backgroundColor, color: textColor }}>
           <h1 style={{ fontSize: '3rem', marginBottom: '20px' }}>{title}</h1>
           <p style={{ fontSize: '1.5rem', marginBottom: '30px' }}>{description}</p>
           <a href="#" style={{ padding: '10px 20px', fontSize: '1.2rem', backgroundColor: '#007bff', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>{buttonText}</a>
@@ -46,14 +47,16 @@ export const config = {
         title: { type: "text" },
         backgroundColor: colorField,
         textColor: colorField,
+        padding: { type: "text" }
       },
       defaultProps: {
         title: "Heading",
         backgroundColor: "transparent",
-        textColor: "#000000"
+        textColor: "#000000",
+        padding: "20px"
       },
-      render: ({ title, backgroundColor, textColor }) => (
-        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', padding: '20px', backgroundColor, color: textColor }}>{title}</h2>
+      render: ({ title, backgroundColor, textColor, padding }) => (
+        <h2 style={{ fontSize: '2rem', margin: 0, padding, backgroundColor, color: textColor }}>{title}</h2>
       )
     },
     Text: {
@@ -61,14 +64,16 @@ export const config = {
         content: { type: "textarea" },
         backgroundColor: colorField,
         textColor: colorField,
+        padding: { type: "text" }
       },
       defaultProps: {
         content: "Enter your text here.",
         backgroundColor: "transparent",
-        textColor: "#333333"
+        textColor: "#333333",
+        padding: "20px"
       },
-      render: ({ content, backgroundColor, textColor }) => (
-        <p style={{ padding: '20px', fontSize: '1rem', backgroundColor, color: textColor }}>{content}</p>
+      render: ({ content, backgroundColor, textColor, padding }) => (
+        <p style={{ margin: 0, padding, fontSize: '1rem', backgroundColor, color: textColor }}>{content}</p>
       )
     },
     Image: {
@@ -76,14 +81,16 @@ export const config = {
         url: { type: "text" },
         alt: { type: "text" },
         backgroundColor: colorField,
+        padding: { type: "text" }
       },
       defaultProps: {
         url: "https://via.placeholder.com/800x400",
         alt: "Placeholder",
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
+        padding: "20px"
       },
-      render: ({ url, alt, backgroundColor }) => (
-        <div style={{ padding: '20px', textAlign: 'center', backgroundColor }}>
+      render: ({ url, alt, backgroundColor, padding }) => (
+        <div style={{ padding, textAlign: 'center', backgroundColor }}>
           <img src={url} alt={alt} style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }} />
         </div>
       )
@@ -98,6 +105,7 @@ export const config = {
         feature3Desc: { type: "textarea" },
         backgroundColor: colorField,
         textColor: colorField,
+        padding: { type: "text" }
       },
       defaultProps: {
         feature1: "Feature 1",
@@ -107,10 +115,11 @@ export const config = {
         feature3: "Feature 3",
         feature3Desc: "Details about feature 3.",
         backgroundColor: "transparent",
-        textColor: "#000000"
+        textColor: "#000000",
+        padding: "60px 20px"
       },
-      render: ({ feature1, feature1Desc, feature2, feature2Desc, feature3, feature3Desc, backgroundColor, textColor }) => (
-        <section className="features-section" style={{ padding: '60px 20px', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', backgroundColor, color: textColor }}>
+      render: ({ feature1, feature1Desc, feature2, feature2Desc, feature3, feature3Desc, backgroundColor, textColor, padding }) => (
+        <section className="features-section" style={{ padding, display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', backgroundColor, color: textColor }}>
           {[
             { title: feature1, desc: feature1Desc },
             { title: feature2, desc: feature2Desc },
@@ -205,6 +214,103 @@ export const config = {
           <p style={{ fontSize: '1.2rem', marginBottom: '10px' }}>"{text}"</p>
           <footer style={{ fontWeight: 'bold' }}>{author}</footer>
         </blockquote>
+      )
+    },
+    Section: {
+      fields: {
+        backgroundColor: colorField,
+        padding: { type: "text" },
+      },
+      defaultProps: {
+        backgroundColor: "transparent",
+        padding: "40px 20px"
+      },
+      render: ({ backgroundColor, padding }) => (
+        <section style={{ backgroundColor, padding }}>
+          <DropZone zone="content" />
+        </section>
+      )
+    },
+    Columns: {
+      fields: {
+        columns: {
+          type: "radio",
+          options: [
+            { label: "1 Column", value: "1" },
+            { label: "2 Columns", value: "2" },
+            { label: "3 Columns", value: "3" },
+            { label: "4 Columns", value: "4" }
+          ]
+        },
+        gap: { type: "text" },
+        backgroundColor: colorField,
+        padding: { type: "text" }
+      },
+      defaultProps: {
+        columns: "2",
+        gap: "20px",
+        backgroundColor: "transparent",
+        padding: "20px"
+      },
+      render: ({ columns, gap, backgroundColor, padding }) => {
+        const colCount = parseInt(columns, 10) || 2;
+        return (
+          <div style={{ display: 'flex', gap, backgroundColor, padding, flexWrap: 'wrap' }}>
+            {Array.from({ length: colCount }).map((_, i) => (
+              <div key={i} style={{ flex: 1, minWidth: '200px' }}>
+                <DropZone zone={`col-${i}`} />
+              </div>
+            ))}
+          </div>
+        );
+      }
+    },
+    Navbar: {
+      fields: {
+        logoText: { type: "text" },
+        backgroundColor: colorField,
+        textColor: colorField,
+        link1: { type: "text" },
+        link1Url: { type: "text" },
+        link2: { type: "text" },
+        link2Url: { type: "text" },
+        link3: { type: "text" },
+        link3Url: { type: "text" }
+      },
+      defaultProps: {
+        logoText: "My Brand",
+        backgroundColor: "#2c3e50",
+        textColor: "#ffffff",
+        link1: "Home", link1Url: "#",
+        link2: "About", link2Url: "#",
+        link3: "Contact", link3Url: "#"
+      },
+      render: ({ logoText, backgroundColor, textColor, link1, link1Url, link2, link2Url, link3, link3Url }) => (
+        <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 30px', backgroundColor, color: textColor }}>
+          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{logoText}</div>
+          <div style={{ display: 'flex', gap: '20px' }}>
+            {link1 && <a href={link1Url} style={{ color: textColor, textDecoration: 'none' }}>{link1}</a>}
+            {link2 && <a href={link2Url} style={{ color: textColor, textDecoration: 'none' }}>{link2}</a>}
+            {link3 && <a href={link3Url} style={{ color: textColor, textDecoration: 'none' }}>{link3}</a>}
+          </div>
+        </nav>
+      )
+    },
+    Footer: {
+      fields: {
+        copyrightText: { type: "text" },
+        backgroundColor: colorField,
+        textColor: colorField,
+      },
+      defaultProps: {
+        copyrightText: "© 2026 My Brand. All rights reserved.",
+        backgroundColor: "#1a1a1a",
+        textColor: "#ffffff",
+      },
+      render: ({ copyrightText, backgroundColor, textColor }) => (
+        <footer style={{ padding: '30px', textAlign: 'center', backgroundColor, color: textColor }}>
+          <p style={{ margin: 0 }}>{copyrightText}</p>
+        </footer>
       )
     }
   }

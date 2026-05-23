@@ -2,13 +2,25 @@ import React, { useState } from 'react';
 import { Render } from '@puckeditor/core';
 import PuckEditor, { config } from './components/PuckEditor';
 
-const initialData = {
+const defaultData = {
   content: [],
   root: {},
 };
 
+const getInitialData = () => {
+  const savedData = localStorage.getItem('puck-data');
+  if (savedData) {
+    try {
+      return JSON.parse(savedData);
+    } catch (e) {
+      console.error('Failed to parse saved puck data', e);
+    }
+  }
+  return defaultData;
+};
+
 function App() {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(getInitialData());
   const [mode, setMode] = useState('edit'); // 'edit' or 'preview'
 
   const handleExport = () => {
@@ -48,7 +60,13 @@ function App() {
       </div>
       <div className="flex-1 overflow-hidden">
         {mode === 'edit' ? (
-          <PuckEditor data={data} onChange={setData} />
+          <PuckEditor
+            data={data}
+            onChange={(newData) => {
+              setData(newData);
+              localStorage.setItem('puck-data', JSON.stringify(newData));
+            }}
+          />
         ) : (
           <div className="h-full w-full overflow-y-auto bg-white">
             <Render config={config} data={data} />
