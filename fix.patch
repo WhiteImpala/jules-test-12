@@ -1,0 +1,19 @@
+--- src/App.jsx
++++ src/App.jsx
+@@ -47,7 +47,7 @@
+
+     const updatedPages = {
+       ...pages,
+-      [path]: { name: capitalizedName, data: defaultData }
++      [path]: { name: capitalizedName, data: { content: [], root: {} } }
+     };
+     setPages(updatedPages);
+     setCurrentPage(path);
+@@ -193,6 +193,7 @@
+       <div className="flex-1 overflow-hidden">
+         {mode === 'edit' ? (
+           <PuckEditor
++            key={currentPage}
+             data={data}
+             onChange={updatePageData}
+           />
