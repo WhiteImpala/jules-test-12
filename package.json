@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "grapesjs": "^0.22.16",
+    "grapesjs-blocks-basic": "^1.0.2",
+    "grapesjs-component-countdown": "^1.0.2",
+    "grapesjs-plugin-export": "^1.0.12",
+    "grapesjs-plugin-forms": "^2.0.6",
     "grapesjs-preset-webpage": "^1.0.3",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
